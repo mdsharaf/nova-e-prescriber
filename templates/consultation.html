@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block title %}Consultation{% endblock %}
+{% block content %}
+<div class="consult-container">
+    <h2>Consulting: {{ patient.name }} ({{ patient.age }}, {{ patient.gender }})</h2>
+    <p><strong>Vitals:</strong> {{ patient.vitals }}</p>
+    <div id="recorder-ui">
+        <p id="status">Press "Start Recording" to begin the consultation.</p>
+        <button id="recordButton" class="btn">Start Recording</button>
+        <form id="audio-form" action="{{ url_for('process_audio', patient_id=patient.id) }}" method="post" enctype="multipart/form-data" class="hidden">
+            <input type="hidden" name="audio-blob" id="audio-blob">
+            <button type="submit" class="btn btn-primary" id="processButton">Stop and Process Audio</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<a href="{{ url_for('doctor_dashboard') }}" class="btn" style="margin-top:20px;">Back to Dashboard</a>
+<script src="{{ url_for('static', filename='js/recorder.js') }}"></script>
+{% endblock %}

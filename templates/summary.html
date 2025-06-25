@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %}Visit Summary{% endblock %}
+{% block content %}
+<div class="summary-container">
+    <h2>Visit Summary for {{ data.patient.name }}</h2>
+    <div class="summary-details">
+        <p><strong>Patient:</strong> {{ data.patient.name }}</p>
+        <p><strong>Age:</strong> {{ data.patient.age }}</p>
+        <p><strong>Gender:</strong> {{ data.patient.gender }}</p>
+        <p><strong>Vitals:</strong> {{ data.patient.vitals }}</p>
+        <hr>
+        <p><strong>Chief Complaint Summary:</strong> {{ data.summary }}</p>
+        <hr>
+        <h3>Physical Examination</h3>
+        <ul>
+            {% for exam in data.exams %}
+            <li>{{ exam }}</li>
+            {% endfor %}
+        </ul>
+        <hr>
+        <h3>Prescription</h3>
+        <ul>
+            {% for med in data.prescriptions %}
+            <li>{{ med }}</li>
+            {% endfor %}
+        </ul>
+        <hr>
+        <h3>Lab Tests</h3>
+        <ul>
+            {% for test in data.lab_tests %}
+            <li>{{ test }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <a href="{{ url_for('download_pdf', patient_id=data.patient.id) }}" class="btn btn-primary">Generate & Download PDF</a>
+    <a href="{{ url_for('lab_tests', patient_id=data.patient.id) }}" class="btn">Back</a>
+    <a href="{{ url_for('doctor_dashboard') }}" class="btn">Back to Dashboard</a>
+</div>
+{% endblock %}

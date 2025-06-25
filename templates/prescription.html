@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}Prescription{% endblock %}
+{% block content %}
+<div class="workflow-container">
+    <h2>Prescription for {{ patient.name }}</h2>
+    <div class="summary-box">
+        <strong>AI Summary of Complaint:</strong>
+        <p>{{ summary }}</p>
+    </div>
+    
+    <form method="post">
+        <h3>AI Suggestions from Inventory</h3>
+        <p>Select the relevant medicines.</p>
+        <div class="checkbox-group">
+            {% for item in suggestions %}
+            <label><input type="checkbox" name="prescriptions" value="{{ item }}" checked> {{ item }}</label>
+            {% endfor %}
+        </div>
+        
+        <h3>Add from Inventory</h3>
+        <div class="form-group">
+            <label for="inventory-select">Select medicine from inventory:</label>
+            <select name="prescriptions" id="inventory-select" multiple size="5">
+                {% for med in inventory %}
+                    {% if med not in suggestions %}
+                    <option value="{{ med }}">{{ med }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        
+        <button type="submit" class="btn">Proceed to Lab Tests</button>
+    </form>
+     <a href="{{ url_for('examination', patient_id=patient.id) }}" class="btn" style="margin-top:20px;">Back</a>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}Doctor Dashboard{% endblock %}
+{% block content %}
+<div class="queue-container">
+    <h2>Patient Queue</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Vitals</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for patient in queue %}
+            <tr>
+                <td>{{ patient.name }}</td>
+                <td>{{ patient.age }}</td>
+                <td>{{ patient.vitals }}</td>
+                <td>
+                    <a href="{{ url_for('consultation', patient_id=patient.id) }}" class="btn">Consult</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4">The queue is empty.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

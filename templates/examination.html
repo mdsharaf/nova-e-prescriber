@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}Physical Examination{% endblock %}
+{% block content %}
+<div class="workflow-container">
+    <h2>Physical Examination for {{ patient.name }}</h2>
+    <div class="summary-box">
+        <strong>AI Summary of Complaint:</strong>
+        <p>{{ summary }}</p>
+    </div>
+    
+    <form method="post">
+        <h3>AI Suggestions for Examination</h3>
+        <p>Select the relevant findings and add your own.</p>
+        <div class="checkbox-group">
+            {% for item in suggestions %}
+            <label><input type="checkbox" name="exams" value="{{ item }}" checked> {{ item }}</label>
+            {% endfor %}
+        </div>
+
+        <h3>Custom Findings</h3>
+        <div class="form-group">
+            <input type="text" name="custom_exam" placeholder="Add another finding">
+        </div>
+        
+        <button type="submit" class="btn">Proceed to Prescription</button>
+    </form>
+    <a href="{{ url_for('consultation', patient_id=patient.id) }}" class="btn" style="margin-top:20px;">Back</a>
+</div>
+{% endblock %}

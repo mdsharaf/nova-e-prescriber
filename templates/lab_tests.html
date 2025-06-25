@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}Lab Tests{% endblock %}
+{% block content %}
+<div class="workflow-container">
+    <h2>Lab Tests for {{ patient.name }}</h2>
+    <div class="summary-box">
+        <strong>AI Summary of Complaint:</strong>
+        <p>{{ summary }}</p>
+    </div>
+    
+    <form method="post">
+        <h3>AI Suggestions for Lab Tests</h3>
+        <p>Select the relevant tests and add your own.</p>
+        <div class="checkbox-group">
+            {% for item in suggestions %}
+            <label><input type="checkbox" name="tests" value="{{ item }}" checked> {{ item }}</label>
+            {% endfor %}
+        </div>
+
+        <h3>Custom Tests</h3>
+        <div class="form-group">
+            <input type="text" name="custom_test" placeholder="Add another test">
+        </div>
+        
+        <button type="submit" class="btn">Proceed to Summary</button>
+    </form>
+    <a href="{{ url_for('prescription', patient_id=patient.id) }}" class="btn" style="margin-top:20px;">Back</a>
+</div>
+{% endblock %}
